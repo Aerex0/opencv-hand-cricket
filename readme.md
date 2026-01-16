@@ -1,273 +1,252 @@
-# 🏏 Hand Cricket Game
+# 🏏 Hand Cricket Game (OpenCV)
 
-A fun and interactive computer vision-based cricket game where you play cricket using hand gestures! Show different numbers of fingers to bat, bowl, and score runs against the computer opponent.
+An interactive hand cricket game powered by computer vision and hand gesture recognition using MediaPipe. Play cricket against the computer using just your hand gestures!
 
-![Python](https://img.shields.io/badge/python-v3.7+-blue.svg)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green.svg)
-![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10+-orange.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Game Menu](screenshots/game-menu.png)
 
-## 🎮 Game Overview
+## 🎮 Features
 
-Hand Cricket is a digital version of the popular hand game where players use finger counting to simulate cricket matches. Using computer vision and hand tracking technology, this game detects your hand gestures in real-time and lets you play an exciting cricket match against an AI opponent.
+- **Real-time Hand Detection**: Uses MediaPipe's hand landmarker for accurate finger counting
+- **Gesture-Based Gameplay**: Show 0-5 fingers to score runs (0 fingers = 1 run, 5 fingers = 6 runs)
+- **Two Innings System**: Complete cricket experience with batting and bowling turns
+- **Sound Effects**: Immersive audio for runs, outs, wins, and losses
+- **Victory Animations**: Celebrate wins and commiserate losses with animated GIFs
+- **Fullscreen Mode**: Optimized for an immersive gaming experience
+- **Auto Model Download**: Automatically downloads the required MediaPipe model on first run
 
-### 🎯 Game Features
+## 📋 Prerequisites
 
-- **Real-time Hand Detection**: Uses MediaPipe for accurate finger counting
-- **Immersive Gameplay**: Full-screen gaming experience with dynamic UI
-- **Sound Effects**: Engaging audio feedback for different game events
-- **Animated Celebrations**: Victory and defeat animations with GIF overlays
-- **Two Innings System**: Complete cricket match simulation
-- **Auto-progression**: Seamless round transitions
-- **Score Tracking**: Real-time score display and round counting
-
-## 🎲 How to Play
-
-### Basic Rules
-1. **Finger Counting**: Show 1-6 fingers(except 5) to represent runs 
-2. **Batting**: When you're batting, your finger count is your score for that ball
-3. **Bowling**: When computer is batting, your finger count tries to get them out
-4. **Getting Out**: If your finger count matches the computer's, you're OUT!
-5. **Winning**: Score more runs than your opponent in two innings
-
-### Game Controls
-- **S**: Start the game
-- **N**: Restart game (after game over)
-- **Q**: Quit the game
-
-### Game Flow
-1. **Innings 1**: You bat first, try to score as many runs as possible
-2. **Getting Out**: Match the computer's number and your innings ends
-3. **Innings 2**: Computer bats, try to prevent them from beating your score
-4. **Victory**: Highest score after both innings wins!
-
-## 🛠️ Installation
-
-### Prerequisites
-- Python 3.7 or higher
+- Python 3.8 or higher
 - Webcam/Camera
-- Windows/macOS/Linux
+- Working audio system (optional, for sound effects)
 
-### Required Dependencies
+## 🚀 Installation
+
+### Step 1: Clone the Repository
+
 ```bash
-pip install opencv-python
-pip install mediapipe
-pip install pygame
-pip install imageio
-pip install tkinter
+git clone https://github.com/yourusername/opencv-hand-cricket.git
+cd opencv-hand-cricket
 ```
 
-### Quick Install
-```bash
-# Clone the repository
-git clone https://github.com/Aerex0/hand-cricket.git
-cd hand-cricket
+### Step 2: Create Virtual Environment (Recommended)
 
-# Install dependencies
-# tkinter is not in this file , install it side by side
+```bash
+python -m venv venv
+
+# On Windows
+venv\Scripts\activate
+
+# On macOS/Linux
+source venv/bin/activate
+```
+
+### Step 3: Install Dependencies
+
+#### Option A: Using requirements.txt (Recommended)
+
+```bash
 pip install -r requirements.txt
-
-# Run the game
-python main.py
 ```
+
+#### Option B: If you encounter conflicts
+
+If you get dependency conflicts with requirements.txt, remove all installed packages and install manually:
+
+```bash
+# Uninstall everything first
+pip freeze | xargs pip uninstall -y
+
+# Install packages one by one
+pip install mediapipe
+pip install opencv-python
+pip install imageio
+pip install pygame
+```
+
+**Note:** `tkinter` comes pre-installed with Python. If you don't have it:
+- **Ubuntu/Debian:** `sudo apt-get install python3-tk`
+- **macOS/Windows:** Included with standard Python installation
 
 ## 📁 Project Structure
 
 ```
-hand-cricket/
-│
-├── main.py          # Main game file
-├── requirements.txt         # Python dependencies
-├── readme.md               # This file
-│
-├── assets/                 # Game assets
-│   ├── out.wav            # Out sound effect
-│   ├── score.wav          # Scoring sound effect
-│   ├── Win.wav            # Victory sound
-│   ├── lose.wav           # Defeat sound
-│   ├── tie.wav            # Tie sound
-│   ├── Victory.gif        # Victory animation
-│   └── game-over-game.gif # Game over animation
-│
-└── screenshots/           # Game screenshots 
-    ├── gameplay.png
-    ├── lose.png
-    └── Victory.png
-    
+opencv-hand-cricket/
+├── assets/                      # Game assets
+│   ├── game-over-game.gif      # Loss animation
+│   ├── Victory.gif             # Win animation
+│   ├── lose.wav                # Loss sound
+│   ├── out.wav                 # Out sound
+│   ├── score.wav               # Background music
+│   ├── tie.wav                 # Tie game sound
+│   └── Win.wav                 # Victory sound
+├── screenshots/                 # Game screenshots
+│   ├── game-menu.png
+│   ├── lose.png
+│   └── win.png
+├── main.py                     # Main game file
+├── hand_landmarker.task        # MediaPipe model (auto-downloaded)
+├── requirements.txt            # Python dependencies
+└── readme.md                   # This file
 ```
 
-## 🎵 Asset Requirements
+## 🎯 How to Play
 
-### Audio Files (assets/ folder)
-- `out.wav` - Played when player gets out
-- `score.wav` - Background music during active gameplay
-- `Win.wav` - Victory celebration sound
-- `lose.wav` - Defeat sound effect
-- `tie.wav` - Tie game sound
+### Starting the Game
 
-### Animation Files (assets/ folder)
-- `Victory.gif` - Celebration animation for winning
-- `game-over-game.gif` - Game over animation for losing
+1. Run the game:
+   ```bash
+   python main.py
+   ```
 
-## 🔧 Technical Details
+2. The game will automatically download the MediaPipe hand landmarker model on first run (if not present)
 
-### Core Technologies
-- **OpenCV**: Video capture and image processing
-- **MediaPipe**: Hand landmark detection and finger counting
-- **Pygame**: Audio management and sound effects
-- **ImageIO**: GIF animation loading and processing
-- **Tkinter**: Screen resolution detection
+3. Press **'S'** to start the game
 
-### Hand Detection Algorithm
-The game uses MediaPipe's hand tracking to detect finger positions:
-- Tracks 21 hand landmarks in real-time
-- Counts extended fingers based on tip vs. PIP joint positions
-- Maps finger count to runs (1-6 range)
-- Special handling for thumb detection
+### Game Rules
 
-### Game Architecture
-- **Modular Design**: Separated functions for different game components
-- **Resource Loading**: Dedicated functions for assets with error handling
-- **State Management**: Clean game state tracking and transitions
-- **UI Rendering**: Organized drawing functions for consistent interface
+1. **Finger Gestures:**
+Use your Right Hand only
+   - 1 finger = 1 run
+   - 2 fingers = 2 runs
+   - 3 fingers = 3 runs
+   - 4 fingers = 4 runs
+   - thumb = 6 runs
+
+2. **Scoring:**
+   - You bat first in Innings 1
+   - Show your hand gesture when prompted (Clock 5-15)
+   - If your gesture matches the computer's random choice = **OUT!**
+   - If different = You score runs!
+
+3. **Innings System:**
+   - **Innings 1:** You bat, try to score as many runs as possible before getting out
+   - **Innings 2:** Computer bats, tries to chase your target
+   - First to get out in each innings ends that innings
+
+4. **Winning:**
+   - Score more runs than the computer to win!
+   - If computer chases your target, you lose
+   - Equal scores = Tie game
+
+### Controls
+
+| Key | Action |
+|-----|--------|
+| **S** | Start the game (from menu) |
+| **N** | Restart game (after game over) |
+| **Q** | Quit game |
+
+### Game Timeline (Per Round)
+
+- **Clock 0-5:** Get Ready phase
+- **Clock 5-15:** Show your hand gesture
+- **Clock 15:** Gesture captured and compared
+- **Clock 15-25:** Result displayed with score
+- **Clock 25:** Innings/game over processing
+- **Clock 25+:** Auto-restart next round (if not game over)
+
+## 🖼️ Screenshots
+
+### Victory Screen
+![Win Screen](screenshots/win.png)
+
+### Game Over Screen
+![Lose Screen](screenshots/lose.png)
+
+## 🔧 Troubleshooting
+
+### Camera Not Working
+- Check if your webcam is connected and working
+- Try running with administrator/sudo privileges
+- Check if another application is using the camera
+
+### MediaPipe Model Download Fails
+- Check your internet connection
+- Manually download from: https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
+- Place it in the project root directory
+
+### Hand Detection Issues
+- Ensure good lighting conditions
+- Keep your hand clearly visible to the camera
+- Try adjusting your hand position and distance from camera
+- Hand should be within 5-15 seconds of the "Show your hand" prompt
+
+### Audio Not Playing
+- Check if audio files exist in `assets/` folder
+- Verify your system audio is not muted
+- Game works without audio, but it's recommended for best experience
+
+### Dependency Conflicts
+- Use a fresh virtual environment
+- Follow Option B installation method (manual package installation)
+- Make sure you're using Python 3.8 or higher
 
 ## 🎨 Customization
 
-### Modifying Game Rules
-Edit the `get_hand_run()` function to change finger counting logic:
+### Changing Difficulty
+Edit the computer's move generation in `main.py`:
 ```python
-def get_hand_run(hand_landmarks):
-    # Modify finger counting algorithm here
-    # Current: 0 fingers = 1 run, 1-5 fingers = 1-5 runs, thumb special case = 6 runs
+computer_move = random.choice([1, 2, 3, 4, 6])  # Current
+computer_move = random.choice([1, 2, 3, 4, 5, 6])  # Include 5 for more variety
 ```
 
-### Changing Game Timing
-Adjust clock values in the main game loop:
+### Adjusting Detection Confidence
+Modify the MediaPipe options in `main.py`:
 ```python
-# Modify these ranges for different game pacing
-elif 0 <= clock < 5:      # Get Ready phase
-elif 5 <= clock < 15:     # Show hand phase  
-elif 15 < clock < 25:     # Result display phase
+options = vision.HandLandmarkerOptions(
+    base_options=base_options,
+    num_hands=1,
+    min_hand_detection_confidence=0.6,  # Lower = more sensitive
+    min_hand_presence_confidence=0.6,
+    min_tracking_confidence=0.6
+)
 ```
 
-### Adding New Sounds
-1. Add audio files to `assets/` folder
-2. Update the `load_sounds()` function
-3. Play sounds using pygame channels in game logic
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Camera not detected:**
-```bash
-# Check if camera is working
-# Try changing camera index in cv.VideoCapture(0) to cv.VideoCapture(1)
-```
-
-**Hand detection not working:**
-```bash
-# Ensure good lighting
-# Keep hand clearly visible in camera frame
-# Try adjusting MediaPipe confidence parameters
-```
-
-**Audio not playing:**
-```bash
-# Check if audio files exist in assets/ folder
-# Verify pygame mixer initialization
-# Test system audio settings
-```
-
-**Performance issues:**
-```bash
-# Lower camera resolution in video setup
-# Reduce MediaPipe model complexity
-# Close other applications using camera/CPU
-```
-
-## 🎯 Game Tips
-
-### For Better Hand Detection
-- **Good Lighting**: Ensure well-lit environment
-- **Clear Background**: Plain background works best
-- **Steady Hand**: Keep hand stable during detection phase
-- **Proper Distance**: Maintain 1-2 feet from camera
-- **Full Hand Visible**: Keep entire hand in camera frame
-
-### Strategy Tips
-- **Vary Your Numbers**: Don't be predictable with finger patterns
-- **Watch Computer Patterns**: AI uses random selection
-- **Timing**: Hand detection happens exactly at clock = 15
-- **Practice**: Get comfortable with quick finger transitions
-
-## 📈 Future Enhancements
-
-### Potential Features
-- [ ] Multiplayer support (two human players)
-- [ ] Difficulty levels for AI opponent
-- [ ] Tournament mode with multiple matches
-- [ ] Hand gesture training mode
-- [ ] Statistics tracking and player profiles
-- [ ] Custom team selection and player names
-- [ ] Enhanced graphics and animations
-- [ ] Mobile app version
-- [ ] Online leaderboards
-- [ ] Replay system for exciting moments
-
-### Technical Improvements
-- [ ] Better hand detection algorithms
-- [ ] Gesture recognition for different shot types
-- [ ] Machine learning for smarter AI opponent
-- [ ] Performance optimizations
-- [ ] Cross-platform packaging
+### Custom Sounds/Animations
+Replace files in the `assets/` folder with your own (keep the same filenames and formats)
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest new features
+- Submit pull requests
+- Improve documentation
 
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit changes**: `git commit -m 'Add amazing feature'`
-4. **Push to branch**: `git push origin feature/amazing-feature`
-5. **Open a Pull Request**
+## 💡 Tips for Best Experience
 
-### Contribution Ideas
-- Bug fixes and performance improvements
-- New game modes or features
-- Better UI/UX design
-- Additional sound effects and animations
-- Documentation improvements
-- Cross-platform testing
+1. **Lighting:** Play in a well-lit room for better hand detection
+2. **Background:** Use a plain background behind your hand
+3. **Hand Position:** Keep your hand at medium distance from the camera
+4. **Gesture Timing:** Show your gesture clearly during the 5-15 second window
+5. **Audio:** Use headphones or speakers for the full experience
 
-## 📄 License
+## 🐛 Known Issues
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- Thumb detection may occasionally be inaccurate depending on hand angle
+- Animation playback speed depends on system performance
+- Game requires manual restart after completion (press 'N')
+
+## 📝 Version History
+
+- **v1.0.0** - Initial release with full game functionality
 
 ## 👨‍💻 Author
 
-**Your Name**
+**Suyash Ranjan (Aerex)**
+
 - GitHub: [@Aerex0](https://github.com/Aerex0)
-- Email: suyashranjan07@gmail.com
+- Game: [Word Builder](https://github.com/Aerex0/opencv-hand-cricket)
+
+Created with ❤️ for cricket and gaming enthusiasts
 
 ## 🙏 Acknowledgments
 
-- **MediaPipe Team**: For excellent hand tracking technology
-- **OpenCV Community**: For computer vision tools
-- **Pygame Developers**: For audio management capabilities
-- **Cricket Fans**: For inspiring this digital version of the classic game
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Troubleshooting](#🐛-troubleshooting) section
-2. Search existing [Issues](https://github.com/Aerex0/hand-cricket-game/issues)
-3. Create a new issue with detailed description
-4. Join our community discussions
+- [MediaPipe](https://mediapipe.dev/) for hand tracking technology
+- [OpenCV](https://opencv.org/) for computer vision capabilities
+- [Pygame](https://www.pygame.org/) for audio management
 
 ---
 
-**Enjoy playing Hand Cricket! 🏏✋**
-
-*Star ⭐ this repository if you found it helpful!*
+**Enjoy playing Hand Cricket! 🏏🎮**

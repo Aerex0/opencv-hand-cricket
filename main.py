@@ -188,7 +188,7 @@ def draw_game_ui(frame, clock, gameresult, gametext, player_score, computer_scor
     
     # Semi-transparent overlay for better text visibility
     overlay = frame.copy()
-    cv.rectangle(overlay, (0, 0), (screen_width, 450), (0, 0, 0), -1)
+    cv.rectangle(overlay, (0, 0), (screen_width, 370), (0, 0, 0), -1)
     frame = cv.addWeighted(overlay, 0.4, frame, 0.6, 0)
     
     # Game title at top center with shadow effect
