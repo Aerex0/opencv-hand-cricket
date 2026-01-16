@@ -25,14 +25,14 @@ An interactive hand cricket game powered by computer vision and hand gesture rec
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/opencv-hand-cricket.git
+git clone https://github.com/Aerex0/opencv-hand-cricket.git
 cd opencv-hand-cricket
 ```
 
 ### Step 2: Create Virtual Environment (Recommended)
 
 ```bash
-python -m venv venv
+python -m venv .venv
 
 # On Windows
 venv\Scripts\activate
@@ -237,7 +237,7 @@ Contributions are welcome! Feel free to:
 **Suyash Ranjan (Aerex)**
 
 - GitHub: [@Aerex0](https://github.com/Aerex0)
-- Game: [Word Builder](https://github.com/Aerex0/opencv-hand-cricket)
+- Game: [OpenCV Hand Cricket](https://github.com/Aerex0/opencv-hand-cricket)
 
 Created with ❤️ for cricket and gaming enthusiasts
 
